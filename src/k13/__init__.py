@@ -16,10 +16,11 @@ def w(x: float, G: str) -> float:
 
     if G not in genders:
         raise ValueError("Plese choose gender equal to 'M' or 'F'")
-    if G == "M":
-        return min(2.671548-0.172480*x + 0.001485*x**2, 0)
 
-    return min(1.287968-0.101090*x + 0.000814*x**2, 0)
+    w_dict = {"M": min(2.671548-0.172480*x + 0.001485*x**2, 0),
+              "F": min(1.287968-0.101090*x + 0.000814*x**2, 0)}
+
+    return w_dict[G]
 
 
 def mu_kol_2013(x: float, G: str) -> float:
@@ -33,9 +34,10 @@ def mu_kol_2013(x: float, G: str) -> float:
     if G not in genders:
         raise ValueError("Plese choose gender equal to 'M' or 'F'")
 
-    if G == "M":
-        return (0.241752+0.004536*10**(0.051*x))/1000
-    return (0.085411+0.003114*10**(0.051*x))/1000
+    mu_kol_2013_dict = {"M": (0.241752+0.004536*10**(0.051*x)) /
+                        1000, "F": (0.085411+0.003114*10**(0.051*x))/1000}
+
+    return mu_kol_2013_dict[G]
 
 
 def mu(u, x, G, Y: int = 2022) -> float:
@@ -67,6 +69,4 @@ def p_surv(x, G, Y, t, s):
 
 
 if __name__ == "__main__":
-    # 24 year old man in 2022, surviving the next 10 years:
-    #print(p_surv(24, "M", 2022, 0, 10))
-    print(p_surv(24, 'M', 2022, 10, 11))
+    print(p_surv(24, 'F', 2022, 10, 11))
