@@ -1,3 +1,8 @@
+"""
+This module implements k13 from Finanstilsynet.
+"""
+
+
 import numpy as np
 from scipy.integrate import quad
 
