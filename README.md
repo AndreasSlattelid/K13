@@ -1,10 +1,15 @@
 # k13
 
-This is a local package named k13, this is based on the following [document](https://www.finanstilsynet.no/contentassets/fdcb5b465a1a434e9eb9579d33ef03ce/nytt-doedelighetsgrunnlag-i-kollektiv-pensjonsforsikring-k-2013.pdf) from Finanstilsynet. 
+This is a package named k13, based on the following [document](https://www.finanstilsynet.no/contentassets/fdcb5b465a1a434e9eb9579d33ef03ce/nytt-doedelighetsgrunnlag-i-kollektiv-pensjonsforsikring-k-2013.pdf) from Finanstilsynet. 
 
+## Installation
+    pip install git+https://github.com/AndreasSlattelid/k13
+
+##  Features
 It has the following functions included:
 * w(x, G): represents the mortality decrease over time, weighted by gender: \
 x: age and G: gender
-* mu_kol_2013(x, G): represents the mortality rate in 2013.
-* mu(u, x, G, Y): represents the "discounted" mortality rate, i.e a 24 year old in 2022, does not have the same mortality as a 24 year old in 2013. It is aslo turned into a function of u, so that one can integrate it. 
-* p_surv(x, G, Y, t, s): represents the survival probability, given that they are alive at time x + t for calculation year Y. For integration, scipy.quad is used. 
+* mu_kol_2013(x, G): Mortality rate in 2013.
+* mu(u, x, G, Y): The "discounted" mortality rate, i.e a 24 year old in 2022, does not have the same mortality as a 24 year old in 2013. 
+* p_surv(x, G, Y, t, s): Probability that the insured will survive until x + s, given that they are alive at x + t and are aged x in calculation year Y. \
+Integration method: scipy.quad 
