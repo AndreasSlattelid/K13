@@ -9,6 +9,6 @@ packages = ["src/k13"]
 name = "k13"
 version = "0.0.1"
 dependencies = [
-    "numpy~=1.23.3",
-    "scipy~=1.9.1"
+    "numpy",
+    "scipy"
 ]
