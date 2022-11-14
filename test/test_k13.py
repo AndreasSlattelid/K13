@@ -9,16 +9,22 @@ gender_data = [
     ("M", does_not_raise())
 ]
 
+age_data = [
+    (22, does_not_raise()), 
+    (0, does_not_raise()), 
+    (-2, pytest.raises(ValueError))
+]
+
 
 @pytest.mark.parametrize("gender, raises", gender_data)
 def test_w_gender(gender, raises):
     with raises:
         k13.w(x=24, G=gender)
 
-
-def test_w_invalid_age_input():
-    with pytest.raises(ValueError):
-        k13.w(x=-2, G="M")
+@pytest.mark.parametrize("age, raises", age_data)
+def test_w_age(age, raises):
+    with raises:
+        k13.w(x=age, G="M")
 
 
 def test_mu_invalid_year_input():
