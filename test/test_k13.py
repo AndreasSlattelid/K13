@@ -15,6 +15,19 @@ age_data = [
     (-2, pytest.raises(ValueError))
 ]
 
+year_data = [
+    (2011, pytest.raises(ValueError)),
+    (2012, pytest.raises(ValueError)), 
+    (2013, does_not_raise()), 
+    (2014, does_not_raise())
+]
+
+u_input_data =[
+    (0, does_not_raise()), 
+    (0.5, does_not_raise()), 
+    (-2, pytest.raises(ValueError)), 
+    (-3.45, pytest.raises(ValueError))
+]
 
 @pytest.mark.parametrize("gender, raises", gender_data)
 def test_w_gender(gender, raises):
@@ -26,15 +39,15 @@ def test_w_age(age, raises):
     with raises:
         k13.w(x=age, G="M")
 
+@pytest.mark.parametrize("year, raises", year_data)
+def test_mu_year(year, raises):
+    with raises:
+        k13.mu(u = 10, x = 24, G = "M", Y = year)
 
-def test_mu_invalid_year_input():
-    with pytest.raises(ValueError):
-        k13.mu(20, 24, G="M", Y=2011)
-
-
-def test_mu_invalid_u_input():
-    with pytest.raises(ValueError):
-        k13.mu(u=-2, x=24, G="M", Y=2022)
+@pytest.mark.parametrize("u, raises", u_input_data)
+def test_mu_u_input(u, raises):
+    with raises:
+        k13.mu(u = u, x = 24, G = "M", Y = 2022)
 
 #-------------------------------------------------------------------------------------------------
 # testing p_surv
@@ -44,22 +57,10 @@ def test_immidiate_survival(t, s, expected):
 
     assert calculated == expected
 
-year_data = [
-    (2012, pytest.raises(ValueError)), 
-    (2013, does_not_raise()), 
-    (2014, does_not_raise())
-]
-
 @pytest.mark.parametrize("year, raises", year_data)
 def test_p_surv_year_input(year, raises):
     with raises:
         k13.p_surv(x=24, G="M", Y=year, t=0, s=10)
-
-age_data = [
-    (22, does_not_raise()), 
-    (0, does_not_raise()), 
-    (-2, pytest.raises(ValueError))
-]
 
 @pytest.mark.parametrize("age, raises", age_data)
 def test_p_surv_age_input(age, raises):
