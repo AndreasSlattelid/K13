@@ -1,20 +1,16 @@
-"""
-This module implements k13 from Finanstilsynet.
-"""
-
-
 import numpy as np
 from scipy.integrate import quad
 
 genders = ["M", "F"]
 
-
 def w(x: float, G: str) -> float:
     """
-    x: age of insured 
-    G: gender of insured 
-
-    Coincides with the weights given by Finanstilsynet
+    Args: 
+        x (float): age of insured
+        G (str): gender of insured
+    
+    Returns:
+        The weights given by Finanstilsynet
     """
     if x < 0:
         raise ValueError("Please choose age >= 0")
@@ -30,24 +26,32 @@ def w(x: float, G: str) -> float:
 
 def mu_kol_2013(x: float, G: str) -> float:
     """
-    x: age of insured 
-    G: gender of insured 
-
-    coincides with mu.kol.2013 from finanstilsynet
+    Args: 
+        x (float): age of insured
+        G (str): gender of insured
+    Returns:
+        correspond to mu.kol.2013 from Finanstilsynet
     """
 
     if G not in genders:
         raise ValueError("Plese choose gender equal to 'M' or 'F'")
 
-    mu_kol_2013_dict = {"M": (0.241752+0.004536*10**(0.051*x)) /
-                        1000, "F": (0.085411+0.003114*10**(0.051*x))/1000}
+    mu_kol_2013_dict = {"M": (0.241752+0.004536*10**(0.051*x))/1000,
+                        "F": (0.085411+0.003114*10**(0.051*x))/1000}
 
     return mu_kol_2013_dict[G]
 
 
 def mu(u, x, G, Y: int = 2022) -> float:
     """ 
-    represents the "discounted" mortality
+    Args: 
+        u (float): makes the function integrable
+        x (float): age of insured
+        G (str): gender of insured
+        Y (int): calculation year
+    
+    Returns: 
+        the dynamic mortality depending on calculation year
     """
 
     if u < 0:
@@ -60,11 +64,23 @@ def mu(u, x, G, Y: int = 2022) -> float:
 
 def p_surv(x, G, Y, t, s):
     """
-    survival probability from start = t to end = s
+    Args: 
+        x (float): age of insured
+        G (str): gender of insured
+        Y (int): calculation year
+        t (float): start time for survival
+        s (float): end time for survival
+    
+    Returns: 
+        survival probability from start = t until end = s
     """
+    if x < 0:
+        raise ValueError("Please choose age >= 0")
+
     if (t > s or t < 0):
         raise ValueError(
             "t and s must be positve and t must be smaller or equal to s")
+
     if (t == s):
         return 1
 
@@ -74,4 +90,5 @@ def p_surv(x, G, Y, t, s):
 
 
 if __name__ == "__main__":
-    print(p_surv(24, 'F', 2022, 10, 11))
+    #print(p_surv(20, 'k', 2022, 10, 11))
+    print(mu(u = 10, x = 25, G = "F", Y = 2022))
