@@ -1,6 +1,6 @@
-# k13
+# Overview
 
-This is a package named k13, based on the following [document](https://www.finanstilsynet.no/contentassets/fdcb5b465a1a434e9eb9579d33ef03ce/nytt-doedelighetsgrunnlag-i-kollektiv-pensjonsforsikring-k-2013.pdf) from Finanstilsynet. 
+k13 is a package, based on the following [document](https://www.finanstilsynet.no/contentassets/fdcb5b465a1a434e9eb9579d33ef03ce/nytt-doedelighetsgrunnlag-i-kollektiv-pensjonsforsikring-k-2013.pdf) from Finanstilsynet. 
 
 ## Installation
     pip install git+https://github.com/AndreasSlattelid/k13
