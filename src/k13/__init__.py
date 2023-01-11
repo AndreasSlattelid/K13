@@ -32,6 +32,8 @@ def mu_kol_2013(x: float, G: str) -> float:
     Returns:
         correspond to mu.kol.2013 from Finanstilsynet
     """
+    if x < 0:
+        raise ValueError("Please choose age (x) >= 0")
 
     if G not in genders:
         raise ValueError("Plese choose gender equal to 'M' or 'F'")
@@ -51,11 +53,13 @@ def mu(u, x, G, Y: int = 2022) -> float:
         Y (int): calculation year
     
     Returns: 
-        the dynamic mortality depending on calculation year
+        the dynamic mortality depending on calculation year, 
+        works as a functional transformation, for integtation purposes
     """
 
     if u < 0:
         raise ValueError("Please choose u >= 0")
+    
     if Y < 2013:
         raise ValueError("Please choose year Y >= 2013")
 
@@ -91,4 +95,5 @@ def p_surv(x, G, Y, t, s):
 
 if __name__ == "__main__":
     #print(p_surv(20, 'k', 2022, 10, 11))
-    print(mu(u = 10, x = 25, G = "F", Y = 2022))
+    print(mu(u = -26, x = 25, G = "F", Y = 2022))
+
